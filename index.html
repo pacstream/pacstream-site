@@ -389,12 +389,99 @@
     .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
 
     /* ── RESPONSIVE ── */
+    /* ══ MOBILE ══ */
     @media(max-width:768px){
-      nav,footer,.sec,.cta-sec{padding-left:20px;padding-right:20px}
-      .hero{padding:0 20px 80px}
-      .dc{margin:0 20px 80px;padding:32px 24px}
+
+      /* Cursor — inutile sur mobile */
+      #cur,#cur2{display:none}
+      body{cursor:auto}
+
+      /* Nav */
+      nav{padding:0 20px;height:58px}
       .nav-r{display:none}
-      .pgrid{grid-template-columns:repeat(2,1fr)}
+
+      /* Hero */
+      .hero{
+        padding:80px 20px 70px;
+        justify-content:center;
+        min-height:100svh;
+      }
+      .hero-tag{font-size:10px;letter-spacing:2px;margin-bottom:20px}
+      .hero h1{
+        font-size:clamp(48px,14vw,72px);
+        letter-spacing:-.03em;
+        margin-bottom:28px;
+        line-height:.92;
+      }
+      .hero-bot{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:24px;
+      }
+      .hero-desc{font-size:14px;max-width:100%}
+      .hero-acts{flex-direction:column;width:100%;gap:14px}
+      .btn-p{width:100%;justify-content:center;padding:15px 24px;font-size:15px}
+      .btn-g{font-size:14px}
+      .scroll-hint{display:none}
+
+      /* Sections */
+      .sec{padding:72px 20px}
+      .st{font-size:clamp(36px,10vw,52px);letter-spacing:-.025em}
+
+      /* Features */
+      .fgrid{border-radius:18px;margin-top:48px}
+      .fc{padding:32px 24px}
+      .fc.sp{grid-column:span 1;grid-template-columns:1fr;gap:28px}
+      .fc h3{font-size:20px}
+      .fc p{font-size:13px;max-width:100%}
+      .mock{display:none} /* masqué sur mobile, trop petit */
+
+      /* Platforms */
+      .pgrid{grid-template-columns:repeat(2,1fr);gap:12px;margin-top:48px}
+      .pc{padding:28px 16px;border-radius:16px;gap:10px}
+      .pc-ico{font-size:30px}
+      .pc-name{font-size:14px}
+      .pc-sub{font-size:11px}
+      .pc-badge{font-size:10px;padding:4px 10px}
+
+      /* Pricing */
+      .prgrid{margin-top:48px;gap:16px}
+      .plan{padding:36px 24px;border-radius:20px}
+      .plan-price{font-size:64px}
+
+      /* Discord */
+      .dc{
+        margin:0 20px 80px;
+        padding:32px 24px;
+        flex-direction:column;
+        align-items:flex-start;
+        border-radius:20px;
+        gap:24px;
+      }
+      .dc-l{gap:16px}
+      .dc-ico{width:56px;height:56px;font-size:26px;border-radius:16px}
+      .dc-t h3{font-size:18px}
+      .btn-dc{width:100%;justify-content:center;padding:14px 24px}
+
+      /* CTA */
+      .cta-sec{padding:0 20px 100px}
+      .cta-box{padding:56px 24px;border-radius:24px}
+      .cta-t{font-size:clamp(40px,12vw,64px);letter-spacing:-.03em}
+      .cta-sub{font-size:15px}
+
+      /* Footer */
+      footer{padding:36px 20px}
+      .foot-in{flex-direction:column;gap:20px}
+      .foot-links{gap:20px}
+      .foot-copy{font-size:11px}
+
+      /* Marquee */
+      .mq-i{padding:0 24px;font-size:11px}
+    }
+
+    @media(max-width:400px){
+      .hero h1{font-size:44px}
+      .pgrid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -648,7 +735,8 @@ onResize();
 window.addEventListener('resize', onResize);
 
 // ── PARTICLES ──
-const COUNT = 2200;
+const isMobile = window.innerWidth < 768;
+const COUNT = isMobile ? 600 : 2200;
 const geo = new THREE.BufferGeometry();
 const pos = new Float32Array(COUNT * 3);
 const col = new Float32Array(COUNT * 3);
