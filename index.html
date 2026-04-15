@@ -671,7 +671,15 @@
         <li><span class="pfy">✓</span>Support prioritaire</li>
         <li><span class="pfy">✓</span>Nouveautés en avant-première</li>
       </ul>
-      <a href="https://pay.rev.cat/nlwfjmghawgqlqtj/" target="_blank" class="btn-p" style="margin-top:24px;width:100%;justify-content:center;text-decoration:none;">S'abonner maintenant</a>
+      <div id="subscribe-block" style="margin-top:24px;">
+        <!-- Affiché si app_user_id présent dans l'URL (vient de l'app) -->
+        <a id="subscribe-btn" href="#" target="_blank" class="btn-p" style="width:100%;justify-content:center;text-decoration:none;display:none;">S'abonner maintenant</a>
+        <!-- Affiché si accès direct sans l'app -->
+        <div id="subscribe-app-msg" style="display:none;text-align:center;padding:14px 0;">
+          <p style="color:#aaa;font-size:14px;margin-bottom:10px;">Pour vous abonner, utilisez l'application PacStream.</p>
+          <a href="https://play.google.com/store/apps/details?id=com.pacstream.app" target="_blank" class="btn-p" style="width:100%;justify-content:center;text-decoration:none;">Télécharger l'app</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -960,6 +968,24 @@ window.addEventListener('scroll', () => {
     if (el) el.style.transform = `translateY(${sy * speed}px)`;
   });
 });
+
+// Gestion du bouton d'abonnement
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var userId = params.get('app_user_id');
+  var btn = document.getElementById('subscribe-btn');
+  var msg = document.getElementById('subscribe-app-msg');
+  if (userId && btn && msg) {
+    // Vient de l'app — affiche le bouton avec l'ID dans le chemin
+    btn.href = 'https://pay.rev.cat/nlwfjmghawgqlqtj/' + encodeURIComponent(userId);
+    btn.style.display = 'flex';
+    msg.style.display = 'none';
+  } else if (msg) {
+    // Accès direct — affiche le message "téléchargez l'app"
+    btn.style.display = 'none';
+    msg.style.display = 'block';
+  }
+})();
 </script>
 </body>
 </html>
