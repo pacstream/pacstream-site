@@ -690,25 +690,20 @@ window.addEventListener('scroll',()=>{nav.classList.toggle('s',window.scrollY>40
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');io.unobserve(e.target);}});},{threshold:0.08});
 document.querySelectorAll('.r').forEach(el=>io.observe(el));
 
-// ── 3D TILT ──
-document.querySelectorAll('.fc,.pc,.plan').forEach(card=>{
-  card.addEventListener('mousemove',e=>{const rect=card.getBoundingClientRect();const x=((e.clientX-rect.left)/rect.width-.5)*12;const y=((e.clientY-rect.top)/rect.height-.5)*12;card.style.transform=`perspective(1000px) rotateX(${-y}deg) rotateY(${x}deg) translateY(-6px) scale(1.01)`;});
-  card.addEventListener('mouseleave',()=>{card.style.transform='';});
-});
+// ── 3D TILT (desktop uniquement) ──
+if(window.innerWidth>=900){
+  document.querySelectorAll('.fc,.pc,.plan').forEach(card=>{
+    card.addEventListener('mousemove',e=>{const rect=card.getBoundingClientRect();const x=((e.clientX-rect.left)/rect.width-.5)*12;const y=((e.clientY-rect.top)/rect.height-.5)*12;card.style.transform=`perspective(1000px) rotateX(${-y}deg) rotateY(${x}deg) translateY(-6px) scale(1.01)`;});
+    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+  });
+}
 
-// ── PARALLAX ──
-const parallaxEls=[{el:document.querySelector('.hero h1'),speed:.12},{el:document.querySelector('.hero-desc'),speed:.07},{el:document.querySelector('.hero-acts'),speed:.05},{el:document.querySelector('.hero-right'),speed:.06}];
-window.addEventListener('scroll',()=>{const sy=window.scrollY;parallaxEls.forEach(({el,speed})=>{if(el)el.style.transform=`translateY(${sy*speed}px)`;});});
+// ── PARALLAX (desktop uniquement) ──
+if(window.innerWidth>=900){
+  const parallaxEls=[{el:document.querySelector('.hero h1'),speed:.12},{el:document.querySelector('.hero-desc'),speed:.07},{el:document.querySelector('.hero-acts'),speed:.05},{el:document.querySelector('.hero-right'),speed:.06}];
+  window.addEventListener('scroll',()=>{const sy=window.scrollY;parallaxEls.forEach(({el,speed})=>{if(el)el.style.transform=`translateY(${sy*speed}px)`;});},{ passive:true });
+}
 
-// ── SUBSCRIBE BUTTON ──
-(function(){
-  var params=new URLSearchParams(window.location.search);
-  var userId=params.get('app_user_id');
-  var btn=document.getElementById('subscribe-btn');
-  var msg=document.getElementById('subscribe-app-msg');
-  if(userId&&btn&&msg){btn.href='https://pay.rev.cat/sandbox/gzkpmfjwmtrkjulh/'+encodeURIComponent(userId);btn.style.display='flex';msg.style.display='none';}
-  else if(msg){btn.style.display='none';msg.style.display='block';}
-})();
 </script>
 </body>
 </html>
