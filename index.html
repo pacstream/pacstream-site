@@ -682,6 +682,16 @@ function toggleMenu(){
   document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
 }
 
+// ── SUBSCRIBE BUTTON (inactif tant que #subscribe-btn n'existe pas dans le HTML) ──
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var userId=params.get('app_user_id');
+  var btn=document.getElementById('subscribe-btn');
+  var msg=document.getElementById('subscribe-app-msg');
+  if(userId&&btn&&msg){btn.href='https://pay.rev.cat/sandbox/gzkpmfjwmtrkjulh/'+encodeURIComponent(userId);btn.style.display='flex';msg.style.display='none';}
+  else if(msg){btn.style.display='none';msg.style.display='block';}
+})();
+
 // ── NAV SCROLL ──
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{nav.classList.toggle('s',window.scrollY>40);});
